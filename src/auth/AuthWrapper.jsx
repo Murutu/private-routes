@@ -1,7 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import { RenderHeader } from "../structure";
 import { RenderMenu, RenderRoutes } from "../structure/RenderNavigation";
-
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -9,31 +10,37 @@ export const AuthData = () => useContext(AuthContext);
 
 export const AuthWrapper = () => {
     
+    const navigate = useNavigate();
+
     const [details, setDetails] = useState({
         email: "",
         password: "",
-        isAuthenticated: false
+        
     })
 
-    const login = (userEmail, password) => {
-
-        return new Promise((resolve, reject) => {
-            // Add API
-            if(password === "password") {
-                setDetails({email: userEmail, isAuthenticated: true})
-                resolve("success")
-            } else {
-                reject("Incorrect password")
-            }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        
+        axios.post("https://reqres.in/api/login", {
+            email: details.email,
+            password: details.password
         })
+        .then(res => {
+            localStorage.setItem("token", res.data.token)
+            navigate("/");
+        })
+        .catch(err => console.error(err))
+        
     }
 
     const logout = () => {
-        setDetails({email: "", isAuthenticated: false})
+        setDetails({});
+        navigate("/login")
     }
 
     return (
-        <AuthContext.Provider value={{details, login, logout}}>
+        <AuthContext.Provider value={{details, handleSubmit, logout}}>
             <RenderHeader />
             <RenderMenu />
             <RenderRoutes />
