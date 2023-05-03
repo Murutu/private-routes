@@ -1,32 +1,36 @@
-// import { useContext } from "react"
-// import { Button, FormControl, FormLabel, Input,  IconButton, InputRightElement } from "@chakra-ui/react"
-// import { AuthData } from "../auth/AuthWrapper"
+import { useContext } from "react"
+import { Button, FormControl, FormLabel, Input, Icon, IconButton, InputRightElement } from "@chakra-ui/react"
+import AuthContext from "../context/Auth/AuthWrapper"
 
-// const Login = () => {
+const Login = () => {
 
-//     const {setDetails, handlePassVisibility} = useContext(AuthData);
+    const {details, handleSubmit, handlePassVisibility, dispatch} = useContext(AuthContext);
 
-//     return (
-//         <FormControl>
-//         <FormLabel>Email address</FormLabel>
-//         <Input type='email' placeholder="peter@gmail.com"/>
-//         <FormLabel>Password</FormLabel>
-//         <Input 
-//             // type={showPassword ? 'text' : 'password'}
-//             placeholder="*******"
-//             onChange={event => setDetails(event.currentTarget.value)}
-//             />
-//         <InputRightElement width="3em">
-//             <IconButton h="1.5rem" size="sm" onClick={handlePassVisibility}>
-//             {/* {showPassword ? <Icon name="view-off" /> : <Icon name="view" />} */}
-//             </IconButton>
-//         </InputRightElement>
-//         <Button colorScheme="blue">Log in</Button>
-//         </FormControl>
-//     )
-// }
+    return (
+        <FormControl onSubmit={handleSubmit}>
+        <FormLabel>Email address</FormLabel>
+        <Input 
+            type='email' 
+            placeholder="peter@gmail.com"
+            onChange={(e) => dispatch({...details, email: e.target.value})}
+            />
+        <FormLabel>Password</FormLabel>
+        <Input 
+            type={showPassword ? 'text' : 'password'}
+            placeholder="*******"
+            onChange={e => dispatch(e.currentTarget.value)}
+            />
+        <InputRightElement width="3em">
+            <IconButton h="1.5rem" size="sm" onClick={handlePassVisibility}>
+            {showPassword ? <Icon name="view-off" /> : <Icon name="view" />}
+            </IconButton>
+        </InputRightElement>
+        <Button width="full" variantColor="blue" variant="outline" mt={4} type="submit" colorScheme="blue">Log in</Button>
+        </FormControl>
+    )
+}
 
-// export default Login
+export default Login
 
-// /*
-// */
+/*
+*/
