@@ -1,18 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
+
 import { Stack, Button, Input, FormControl, FormLabel, Container } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
 import { Field, Form, Formik} from "formik";
 import { useToast } from '@chakra-ui/react';
 
 import { useMutation } from 'react-query';
+import {useNavigate} from 'react-router-dom';
 import {loginUser} from '../service/Auth';
 import { useAuthValue } from '../context/Auth/AuthWrapper';
 import { actionTypes } from '../context/Auth/AuthReducer';
 
 const Login = () => {
-    const [{}, dispatch] = useAuthValue()
+    const [{}, dispatch] = useAuthValue();
+    const navigate = useNavigate();
 
     const toast = useToast();
 
@@ -21,7 +24,8 @@ const Login = () => {
         loginUser,
         {
             onSuccess: (data) => {
-                dispatch({ type: actionTypes.SET_TOKEN, value: data.token })
+                dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
+                navigate("/");
             }
         }
         );
