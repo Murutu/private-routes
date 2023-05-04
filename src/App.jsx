@@ -1,32 +1,25 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Routes, Route } from "react-router-dom";
 import { Home, Login, NotFound } from "./pages";
+// import { useAuthValue } from "./context/Auth/AuthWrapper";
 
-const queryClient = new QueryClient()
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "*",
-    element: <NotFound />
-  }
-])
+
 
 function App() {
+  // const [{ token }] = useAuthValue();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router}></RouterProvider>
-    </QueryClientProvider>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="login" element={<Login />}/>
+        <Route path="*" element={<NotFound />}/>
+      </Routes>
   )
 }
 
 export default App
 
+
+/*
+Protected Routes  
+*/
