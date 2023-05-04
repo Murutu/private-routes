@@ -1,19 +1,25 @@
-import { BrowserRouter } from "react-router-dom";
-import './App.css'
-import { RenderHeader } from "./structure";
-import { RenderMenu, RenderRoutes } from "./structure/RenderNavigation";
-import { AuthProvider } from "./context/Auth/AuthWrapper";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Home, Login, NotFound } from "./pages";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "*",
+    element: <NotFound />
+  }
+])
 
 function App() {
 
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <RenderHeader />
-        <RenderMenu />
-        <RenderRoutes />
-      </AuthProvider>
-    </BrowserRouter>
+    <RouterProvider router={router}></RouterProvider>
   )
 }
 

@@ -1,32 +1,15 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 
-const authFetch = axios.create({
-    baseURL: "https://reqres.in/",
-    getToken: (email,password) =>  {
-        axios.post("/api/login", {
-            email, password
-        })
-    }
+const api = axios.create({
+    baseURL: process.env.REACT_APP_REQRES,
 });
 
-export default authFetch;
-
-/*
-class ServerAuth {
-    constructor() {
-        const baseURL = 'https://reqres.in/'
-        this.axios = axios.create({
-            baseURL,
-            timeout: 10000,
-        })
+export const login = async({email, password}) => {
+    try {
+        const { data } = await api.post("/api/login", {email, password});
+        return data;
+    } catch(error) {
+        throw Error(error.response.data.message)
     }
-
-    getToken(email, password){
-        return this.axios.post('/api/login', {
-            email, password
-        })
-    }
-}
-
-export default ServerAuth
-*/
+};

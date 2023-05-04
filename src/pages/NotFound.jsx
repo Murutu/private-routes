@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-const RenderHeader = () => {
+const NotFound = () => {
     return (
-    <div>RenderHeader</div>
+    <div>NotFound</div>
     )
 }
 
-export default RenderHeader
+export default NotFound

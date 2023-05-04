@@ -18,6 +18,8 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.4.0",
+    "formik": "^2.2.9",
+    "formik-chakra-ui": "^1.6.1",
     "framer-motion": "^10.12.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

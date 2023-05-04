@@ -1,27 +1,20 @@
-import { initialAuthState, LOGIN_SUCCESS, LOGIN_FAILED, LOGIN_LOADING } from "./AuthAction";
+export const initialState = {
+    token: null,
+    };
 
-export const authReducer = (state = initialAuthState, action) => {
-    switch(action.type) {
-        case LOGIN_SUCCESS:
-            return {
-                ...state,
-                fetching: false,
-                error: undefined,
-                user: action.payload.user,
-                token: action.payload.token
-            };
-        case LOGIN_FAILED: 
-            return {
-                ...state,
-                fetching: false,
-                error: action.payload
-            }   
-        case LOGIN_LOADING:
-            return {
-                ...state,
-                fetching: true
-            }
+export const actionTypes = {
+    SET_TOKEN: "SET_TOKEN",
+    };
+
+const reducer = (state, action) => {
+    console.log(action);
+    switch (action.type) {
+        case actionTypes.SET_TOKEN:
+        return { ...state, token: action.value };
+
         default:
-            return state;
-    }   
-}
+        return state;
+    }
+    };
+
+export default reducer;
