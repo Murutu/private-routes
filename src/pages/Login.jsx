@@ -3,8 +3,16 @@ import React from 'react';
 import { Stack, Button, Input, FormControl, FormLabel, Container } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
 import { Field, Form, Formik} from "formik";
+import { useMutation } from 'react-query';
+import {loginUser} from '../service/Auth';
 
 const Login = () => {
+
+    const { isLoading, error, isError, mutateAsync, data } = useMutation("login", loginUser);
+    
+    console.log("data", data);
+    console.log(error);
+
     return (
         <Container
             display="flex"
@@ -13,9 +21,15 @@ const Login = () => {
             alignItems="center"
         >
             <Stack width="300px" p="4" boxShadow="xl" borderRadius="xl">
-                <Formik initialValues={{ email: "", password: ""}} onSubmit={(values) => {
-                    console.log(values)
-                }}>
+                <Formik 
+                    initialValues={{ email: "", password: ""}} 
+                    onSubmit={async (values) => {
+                        await mutateAsync({
+                            email: values.email,
+                            password: values.password
+                        })
+                    }}
+                >
                     <Form>
                         <InputControl 
                             name="email"

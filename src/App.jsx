@@ -1,5 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Home, Login, NotFound } from "./pages";
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
@@ -19,7 +22,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <RouterProvider router={router}></RouterProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}></RouterProvider>
+    </QueryClientProvider>
   )
 }
 
