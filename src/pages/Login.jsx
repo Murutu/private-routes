@@ -8,20 +8,27 @@ import { useToast } from '@chakra-ui/react';
 
 import { useMutation } from 'react-query';
 import {loginUser} from '../service/Auth';
+import { useAuthValue } from '../context/Auth/AuthWrapper';
+import { actionTypes } from '../context/Auth/AuthReducer';
 
 const Login = () => {
+    const [{}, dispatch] = useAuthValue()
 
     const toast = useToast();
 
-    const { isLoading, error, isError, mutateAsync, data } = useMutation(
-        "login", loginUser
+    const { isLoading, error, isError, mutateAsync } = useMutation(
+        "login", 
+        loginUser,
+        {
+            onSuccess: (data) => {
+                dispatch({ type: actionTypes.SET_TOKEN, value: data.token })
+            }
+        }
         );
     
     if (isError) {
         toast({ title: error.message, status: "error" });
     }
-
-    console.log(data)
 
     return (
         <Container
@@ -136,4 +143,36 @@ const { isLoading, error, isError, mutateAsync, data } = useMutation("login", lo
         </Container>
     )
 }
+
+*****************
+
+after implementing the contextAPI remove the data
+const { isLoading, error, isError, mutateAsync, data } = useMutation
+
+******************************************
+
+console.log 1st to see if the data exists
+const { isLoading, error, isError, mutateAsync } = useMutation(
+        "login", 
+        loginUser,
+        {
+            onSuccess: (data) => {
+                console.log(data)
+                dispatch({ type: actionTypes.SET_TOKEN, value: data.token })
+            }
+        }
+        );
+    
+    if (isError) {
+        toast({ title: error.message, status: "error" });
+    }
+
+    then
+    const [{}, dispatch] = useAuthValue()
+
+    {
+            onSuccess: (data) => {
+                dispatch({ type: actionTypes.SET_TOKEN, value: data.token })
+            }
+        }
 */

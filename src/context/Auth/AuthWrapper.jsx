@@ -15,19 +15,3 @@ export const AuthProvider = ({reducer, children, initialState}) => {
 
 export const useAuthValue = () => useContext(AuthContext)
 
-/*
-Inside this function we will create a stateful item that will hold the details of our user
-export const AuthWrapper = () => {}
-value={{details, login, logout}} => here we export our initialState and functions
-
-<RenderHeader />
-<RenderMenu />
-<RenderRoutes />
-
-
-const [details, setDetails] = useState({
-        email: "",
-        password: "",
-        showPassword: false
-    })
-*/
