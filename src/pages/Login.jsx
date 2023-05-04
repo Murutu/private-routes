@@ -25,6 +25,7 @@ const Login = () => {
         {
             onSuccess: (data) => {
                 dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
+                localStorage.setItem("token", data.token)
                 navigate("/");
             }
         }
