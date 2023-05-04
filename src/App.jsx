@@ -1,17 +1,21 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Home, Login, NotFound } from "./pages";
-// import { useAuthValue } from "./context/Auth/AuthWrapper";
+import { useAuthValue } from "./context/Auth/AuthWrapper";
 
 
 
 
 function App() {
-  // const [{ token }] = useAuthValue();
+  const [{ token }] = useAuthValue();
 
   return (
       <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="login" element={<Login />}/>
+        <Route path="login" 
+          element={!token ? <Login /> : <Navigate to="/" replace={true}/>}
+        />
+        <Route path="/" 
+          element={token ? <Home /> : <Navigate to="/login" replace={true}/>}
+        />
         <Route path="*" element={<NotFound />}/>
       </Routes>
   )
