@@ -3,8 +3,8 @@ import axios from "axios";
 
 const api = axios.create({
     baseURL: "https://reqres.in/"
-    // baseURL: process.env.REACT_APP_REQRES,
 });
+
 
 export const loginUser = async ({email, password}) => {
     try {     

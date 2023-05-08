@@ -19,6 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
     "formik": "^2.2.9",
     "formik-chakra-ui": "^1.6.1",
     "framer-motion": "^10.12.6",
@@ -26,7 +27,8 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.11.0"
+    "react-router-dom": "^6.11.0",
+    "vite-plugin-env-compatible": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

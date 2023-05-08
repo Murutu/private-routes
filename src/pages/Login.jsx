@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-import { Stack, Button, Input, FormControl, FormLabel, Container } from '@chakra-ui/react';
+import { Stack, Button, Container } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
 import { Field, Form, Formik} from "formik";
 import { useToast } from '@chakra-ui/react';
@@ -12,9 +12,11 @@ import {useNavigate} from 'react-router-dom';
 import {loginUser} from '../service/Auth';
 import { useAuthValue } from '../context/Auth/AuthWrapper';
 import { actionTypes } from '../context/Auth/AuthReducer';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
     const [{}, dispatch] = useAuthValue();
+    const [, setCookie] = useCookies(["jwt"])
     const navigate = useNavigate();
 
     const toast = useToast();
@@ -25,7 +27,7 @@ const Login = () => {
         {
             onSuccess: (data) => {
                 dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
-                localStorage.setItem("token", data.token)
+                setCookie("jwt", data.token);
                 navigate("/");
             }
         }
