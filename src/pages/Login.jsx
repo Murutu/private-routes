@@ -2,9 +2,9 @@
 import React from 'react';
 
 
-import { Stack, Button, Container } from '@chakra-ui/react';
+import { Stack, Button, Container, Wrap, WrapItem } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
-import { Field, Form, Formik} from "formik";
+import { Form, Formik} from "formik";
 import { useToast } from '@chakra-ui/react';
 
 import { useMutation } from 'react-query';
@@ -15,7 +15,7 @@ import { actionTypes } from '../context/Auth/AuthReducer';
 import { useCookies } from 'react-cookie';
 
 const Login = () => {
-    const [{}, dispatch] = useAuthValue();
+    const [{token}, dispatch] = useAuthValue();
     const [, setCookie] = useCookies(["jwt"])
     const navigate = useNavigate();
 
@@ -27,15 +27,30 @@ const Login = () => {
         {
             onSuccess: (data) => {
                 dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
+                toast({ 
+                    title: "Logged in ",
+                    description: "Successfully logged in",
+                    duration: 5000,
+                    isClosable: true,
+                    status: "success",
+                    position: "top"
+                })
                 setCookie("jwt", data.token);
                 navigate("/");
-            }
+            } 
         }
         );
-    
-    if (isError) {
-        toast({ title: error.message, status: "error" });
-    }
+
+        /*
+            toast({
+                title: "Logged in",
+                description: "Successfully logged in",
+                duration: 5000,
+                isClosable: true,
+                status: "success",
+                position: "top"
+            })
+        */
 
     return (
         <Container
@@ -71,14 +86,15 @@ const Login = () => {
                                 placeholder: "***"
                             }}
                         />
-                        <Button 
+                        
+                        <Button
                             isLoading={isLoading}
                             colorScheme="blue" 
                             mt="4" 
                             type="submit"
-                            >
-                            Log in
-                            </Button>
+                        >
+                            Log in 
+                        </Button>
                     </Form>
                 </Formik>
     </Stack>

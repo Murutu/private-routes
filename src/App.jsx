@@ -4,6 +4,7 @@ import { useAuthValue } from "./context/Auth/AuthWrapper";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { actionTypes } from "./context/Auth/AuthReducer";
+import Register from "./pages/Register";
 
 
 
@@ -25,6 +26,9 @@ function App() {
 
   return (
       <Routes>
+        <Route path="register"
+          element={<Register />} 
+        />
         <Route path="login" 
           element={!token ? <Login /> : <Navigate to="/" replace={true}/>}
         />

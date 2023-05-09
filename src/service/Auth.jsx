@@ -15,6 +15,15 @@ export const loginUser = async ({email, password}) => {
     }
 }
 
+export const registerUser = async ({email, password}) => {
+    try {
+        const { data } = await api.post("/api/register", {email, password});
+        return data;
+    } catch (error) {
+        throw Error(error.response.data.message);
+    }
+};
+
 
 /*
 export const loginUser = async ({email, password}) => {
@@ -25,4 +34,6 @@ export const loginUser = async ({email, password}) => {
         throw Error(error.response.data.message)
     }
 }
+
+const api = axios.create({})
 */
