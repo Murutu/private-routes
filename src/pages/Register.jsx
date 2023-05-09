@@ -4,10 +4,10 @@ import React from 'react';
 import { Form , Formik } from "formik";
 import { InputControl } from 'formik-chakra-ui';
 import { useToast } from '@chakra-ui/toast';
-import { Button, Container, Stack } from '@chakra-ui/react';
+import { Button, Container, Stack, Text } from '@chakra-ui/react';
 
 import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../service/Auth';
 import { useAuthValue } from '../context/Auth/AuthWrapper';
 import { actionTypes } from '../context/Auth/AuthReducer';
@@ -65,6 +65,12 @@ const Register = () => {
                         >
                         Register
                         </Button>
+                    <Text mt={3}>
+                        Already have an account ? 
+                    </Text>
+                    <Text color="blue.500">
+                        <Link to="/login">Login</Link>
+                    </Text>
                 </Form>
             </Formik>
 </Stack>
