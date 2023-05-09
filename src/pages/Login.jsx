@@ -4,8 +4,9 @@ import React from 'react';
 
 import { Stack, Button, Container, Text } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
-import { Form, Formik} from "formik";
+import { Form, Formik, ErrorMessage} from "formik";
 import { useToast } from '@chakra-ui/react';
+import * as Yup from "yup";
 
 import { useMutation } from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
@@ -15,11 +16,18 @@ import { actionTypes } from '../context/Auth/AuthReducer';
 import { useCookies } from 'react-cookie';
 
 const Login = () => {
-    const [{token}, dispatch] = useAuthValue();
+    const [{}, dispatch] = useAuthValue();
     const [, setCookie] = useCookies(["jwt"])
     const navigate = useNavigate();
 
     const toast = useToast();
+
+    const validationSchema = Yup.object({
+        email: Yup.string()
+            .required("Email is required")
+            .email("Invalid email address"),
+        password: Yup.string().required("Password is required")
+    })
 
     const { isLoading, error, isError, mutateAsync } = useMutation(
         "login", 
@@ -57,6 +65,7 @@ const Login = () => {
                             password: values.password
                         })
                     }}
+                    validationSchema={validationSchema}
                 >
                     <Form>
                         <InputControl 
@@ -67,6 +76,7 @@ const Login = () => {
                                 placeholder: "peter@gmail.com"
                             }}
                         />
+                        
                         <InputControl
                             name="password"
                             label="Password:"
