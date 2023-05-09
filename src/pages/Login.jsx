@@ -2,13 +2,13 @@
 import React from 'react';
 
 
-import { Stack, Button, Container, Wrap, WrapItem } from '@chakra-ui/react';
+import { Stack, Button, Container, Text } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
 import { Form, Formik} from "formik";
 import { useToast } from '@chakra-ui/react';
 
 import { useMutation } from 'react-query';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {loginUser} from '../service/Auth';
 import { useAuthValue } from '../context/Auth/AuthWrapper';
 import { actionTypes } from '../context/Auth/AuthReducer';
@@ -40,17 +40,6 @@ const Login = () => {
             } 
         }
         );
-
-        /*
-            toast({
-                title: "Logged in",
-                description: "Successfully logged in",
-                duration: 5000,
-                isClosable: true,
-                status: "success",
-                position: "top"
-            })
-        */
 
     return (
         <Container
@@ -95,6 +84,9 @@ const Login = () => {
                         >
                             Log in 
                         </Button>
+                        <Text color="blue.500">
+                            <Link to="/register">Create account</Link>
+                        </Text>
                     </Form>
                 </Formik>
     </Stack>

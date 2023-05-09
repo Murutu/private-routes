@@ -63,7 +63,7 @@ const Register = () => {
                         mt="4" 
                         type="submit"
                         >
-                        Log in
+                        Register
                         </Button>
                 </Form>
             </Formik>
