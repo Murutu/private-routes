@@ -4,43 +4,22 @@ import React from 'react';
 
 import { Stack, Button, Container, Text } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
-import { Form, Formik, ErrorMessage} from "formik";
-import { useToast } from '@chakra-ui/react';
+import { Form, Formik } from "formik";
+
 import { validationSchema } from '../schemas/Validation';
 
 import { useMutation } from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
 import {loginUser} from '../service/Auth';
-import { useAuthValue } from '../context/Auth/AuthWrapper';
-import { actionTypes } from '../context/Auth/AuthReducer';
-import { useCookies } from 'react-cookie';
+import AuthCallbackLogin from '../hooks/AuthCallbackLogin';
+
 
 const Login = () => {
-    const [{}, dispatch] = useAuthValue();
-    const [, setCookie] = useCookies(["jwt"])
-    const navigate = useNavigate();
-
-    const toast = useToast();
-
-    const { isLoading, error, isError, mutateAsync } = useMutation(
-        "login", 
+    const { isLoading, mutateAsync } = useMutation(
+        "login",
         loginUser,
-        {
-            onSuccess: (data) => {
-                dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
-                toast({ 
-                    title: "Logged in ",
-                    description: "Successfully logged in",
-                    duration: 5000,
-                    isClosable: true,
-                    status: "success",
-                    position: "top"
-                })
-                setCookie("jwt", data.token);
-                navigate("/");
-            } 
-        }
-        );
+        AuthCallbackLogin()
+    )
 
     return (
         <Container

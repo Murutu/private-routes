@@ -5,6 +5,7 @@ import { Form , Formik } from "formik";
 import { InputControl } from 'formik-chakra-ui';
 import { useToast } from '@chakra-ui/toast';
 import { Button, Container, Stack, Text } from '@chakra-ui/react';
+import { validationSchema } from '../schemas/Validation';
 
 import { useMutation } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,12 +17,33 @@ import { useCookies } from 'react-cookie';
 
 
 const Register = () => {
-    const { isLoading, error, isError, mutateAsync, data } = useMutation(
+    const [{}, dispatch] = useAuthValue();
+    const [, setCookie] = useCookies(["jwt"]);
+    const navigate = useNavigate();
+
+    const toast = useToast();
+
+
+    const { isLoading, error, isError, mutateAsync } = useMutation(
         "register", 
-        registerUser
-    );
-    console.log("register", data);
-    console.log(error);
+        registerUser,
+        {
+            onSuccess: (data) => {
+                dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
+                toast({ 
+                    title: "Registered account",
+                    description: "Successfully registered account",
+                    duration: 5000,
+                    isClosable: true,
+                    status: "success",
+                    position: "top"
+                })
+                setCookie("jwt", data.token);
+                navigate("/");
+            } 
+        }
+        );
+    
 
     return (
         <Container
@@ -39,6 +61,7 @@ const Register = () => {
                         password: values.password
                     })
                 }}
+                validationSchema={validationSchema}
             >
                 <Form>
                     <InputControl 
