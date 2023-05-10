@@ -12,15 +12,15 @@ const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
     <ChakraProvider>
+    <QueryClientProvider client={queryClient}>
       <AuthProvider initialState={initialState} reducer={reducer}>
         <Routes>
           <Route path="/*" element={<App />}/>
         </Routes>
       </AuthProvider>
-    </ChakraProvider>
     </QueryClientProvider>
+    </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )
