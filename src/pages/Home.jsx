@@ -19,7 +19,7 @@ const Home = () => {
 
     const showToastLoggedOut = () => {
         toast({
-            title: "Logged out",
+            title: "Logged Out",
             description: "Successfully logged out",
             duration: 5000,
             isClosable: true,

@@ -28,6 +28,16 @@ const AuthCallbackLogin = () => {
             })
             setCookie("jwt", data.token);
             navigate("/");
+        },
+        onError: () => {
+            toast({ 
+                title: "Login failed",
+                description: "Wrong details used",
+                duration: 5000,
+                isClosable: true,
+                status: "error",
+                position: "top"
+            })
         }
     }
 } 
