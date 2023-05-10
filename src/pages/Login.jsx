@@ -6,7 +6,7 @@ import { Stack, Button, Container, Text } from '@chakra-ui/react';
 import { InputControl } from 'formik-chakra-ui';
 import { Form, Formik, ErrorMessage} from "formik";
 import { useToast } from '@chakra-ui/react';
-import * as Yup from "yup";
+import { validationSchema } from '../schemas/Validation';
 
 import { useMutation } from 'react-query';
 import {Link, useNavigate} from 'react-router-dom';
@@ -21,13 +21,6 @@ const Login = () => {
     const navigate = useNavigate();
 
     const toast = useToast();
-
-    const validationSchema = Yup.object({
-        email: Yup.string()
-            .required("Email is required")
-            .email("Invalid email address"),
-        password: Yup.string().required("Password is required")
-    })
 
     const { isLoading, error, isError, mutateAsync } = useMutation(
         "login", 
